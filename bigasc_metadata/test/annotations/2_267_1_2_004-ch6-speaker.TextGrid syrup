@@ -1,0 +1,79 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.486077097505669 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "ORT" 
+        xmin = 0 
+        xmax = 1.486077097505669 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.4700635974006089 
+            text = "" 
+        intervals [2]:
+            xmin = 0.4700635974006089 
+            xmax = 1.0248014261043268 
+            text = "syrup" 
+        intervals [3]:
+            xmin = 1.0248014261043268 
+            xmax = 1.486077097505669 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "KAN" 
+        xmin = 0 
+        xmax = 1.486077097505669 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.4700635974006089 
+            text = "" 
+        intervals [2]:
+            xmin = 0.4700635974006089 
+            xmax = 1.0248014261043268 
+            text = "/ sIr@p /
+" 
+        intervals [3]:
+            xmin = 1.0248014261043268 
+            xmax = 1.486077097505669 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 1.486077097505669 
+        intervals: size = 7 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.4700635974006089 
+            text = "" 
+        intervals [2]:
+            xmin = 0.4700635974006089 
+            xmax = 0.6370341913866784 
+            text = "s" 
+        intervals [3]:
+            xmin = 0.6370341913866784 
+            xmax = 0.7128300531303546 
+            text = "I" 
+        intervals [4]:
+            xmin = 0.7128300531303546 
+            xmax = 0.7787394981248558 
+            text = "r" 
+        intervals [5]:
+            xmin = 0.7787394981248558 
+            xmax = 0.82927007262064 
+            text = "@" 
+        intervals [6]:
+            xmin = 0.82927007262064 
+            xmax = 1.0248014261043268 
+            text = "p" 
+        intervals [7]:
+            xmin = 1.0248014261043268 
+            xmax = 1.486077097505669 
+            text = "" 

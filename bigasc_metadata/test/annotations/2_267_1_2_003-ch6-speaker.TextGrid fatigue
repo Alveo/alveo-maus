@@ -1,0 +1,78 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.6718367346938776 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "ORT" 
+        xmin = 0 
+        xmax = 1.6718367346938776 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.4657956402996933 
+            text = "" 
+        intervals [2]:
+            xmin = 0.4657956402996933 
+            xmax = 1.220870719517947 
+            text = "fatigue" 
+        intervals [3]:
+            xmin = 1.220870719517947 
+            xmax = 1.6718367346938776 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "KAN" 
+        xmin = 0 
+        xmax = 1.6718367346938776 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.4657956402996933 
+            text = "" 
+        intervals [2]:
+            xmin = 0.4657956402996933 
+            xmax = 1.220870719517947 
+            text = "/ f@ti:g /" 
+        intervals [3]:
+            xmin = 1.220870719517947 
+            xmax = 1.6718367346938776 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 1.6718367346938776 
+        intervals: size = 7 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.4657956402996933 
+            text = "" 
+        intervals [2]:
+            xmin = 0.4657956402996933 
+            xmax = 0.5980264643199112 
+            text = "f" 
+        intervals [3]:
+            xmin = 0.5980264643199112 
+            xmax = 0.6511659543467277 
+            text = "@" 
+        intervals [4]:
+            xmin = 0.6511659543467277 
+            xmax = 0.7722745595241236 
+            text = "t" 
+        intervals [5]:
+            xmin = 0.7722745595241236 
+            xmax = 0.9873041238186836 
+            text = "i:" 
+        intervals [6]:
+            xmin = 0.9873041238186836 
+            xmax = 1.220870719517947 
+            text = "g" 
+        intervals [7]:
+            xmin = 1.220870719517947 
+            xmax = 1.6718367346938776 
+            text = "" 

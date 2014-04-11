@@ -1,0 +1,722 @@
+## rdfpipe -i turtle -o xml austalk.owl | xsltproc http://www.w3.org/2002/06/rdfs2html.xsl -
+
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ausnc: <http://ns.ausnc.org.au/schemas/ausnc_md_model/> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix olac: <http://www.language-archives.org/OLAC/1.1/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix austalk: <http://ns.austalk.edu.au/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+
+austalk:Session  a owl:Class, rdfs:Class; 
+    rdfs:label "Session" ;
+    rdfs:comment "Prototype of a Recording Session" .
+
+
+austalk:Item  a owl:Class, rdfs:Class; 
+    rdfs:label "Item" ;
+    rdfs:comment "Prototype of an Item" .
+
+
+austalk:Component  a owl:Class, rdfs:Class; 
+    rdfs:label "Component" ;
+    rdfs:comment "Prototype of a Component" .
+
+
+austalk:MediaFile  a owl:Class, rdfs:Class; 
+    rdfs:label "Media File" ;
+    rdfs:comment "A Media File containing audio or video" .
+
+
+austalk:RecordedComponent  a owl:Class, rdfs:Class; 
+    rdfs:label "Recorded Component" ;
+    rdfs:comment "An instance of a component for one participant" .
+
+
+austalk:RecordedSession  a owl:Class, rdfs:Class; 
+    rdfs:label "Recorded Session" ;
+    rdfs:comment "An instance of a Session for one participant" .
+
+
+ausnc:AusNCObject  a owl:Class, rdfs:Class; 
+    rdfs:label "AusNCObject" ;
+    rdfs:comment "An individual item in the corpus - one recording of a prompt/interview/maptask" .
+
+
+austalk:RecordingSite  a owl:Class, rdfs:Class; 
+    rdfs:label "RecordingSite" ;
+    rdfs:comment "A physical location where recordings were made" .
+
+
+### properties from other namespaces
+
+dbpedia:birthYear a owl:ObjectProperty, rdf:Property;
+    rdfs:label "birthYear";
+    rdfs:comment "birthYear";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+## Geonames http://www.geonames.org/ontology/documentation.html
+geo:Feature a owl:Class, rdfs:Class;
+    rdfs:label "Geographic Feature";
+    rdfs:comment "An identified geo location which has a latitude and longitude" .
+
+
+geo:long a owl:ObjectProperty, rdf:Property;
+    rdfs:label "long";
+    rdfs:comment "long";
+    owl:domain geo:Feature;
+    owl:range xsd:String .
+
+
+geo:lat a owl:ObjectProperty, rdf:Property;
+    rdfs:label "lat";
+    rdfs:comment "lat";
+    owl:domain geo:Feature;
+    owl:range xsd:String .
+    
+####
+    
+    
+foaf:gender a owl:ObjectProperty, rdf:Property;
+    rdfs:label "gender";
+    rdfs:comment "gender";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+
+olac:speaker a owl:ObjectProperty, rdf:Property;
+    rdfs:label "speaker";
+    rdfs:comment "speaker";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+foaf:Person  a owl:Class, rdfs:Class; 
+    rdfs:label "Person" ;
+    rdfs:comment "Person" .
+
+
+dc:isPartOf a owl:ObjectProperty, rdf:Property;
+    rdfs:label "isPartOf";
+    rdfs:comment "isPartOf";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+    
+    
+### 
+
+
+
+austalk:name a owl:ObjectProperty, rdf:Property;
+    rdfs:label "name";
+    rdfs:comment "readable name for a thing";
+    owl:domain owl:Class;
+    owl:range xsd:String .
+
+austalk:id a owl:ObjectProperty, rdf:Property;
+    rdfs:label "id";
+    rdfs:comment "numerical identifier for a session/component/item";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:shortname a owl:ObjectProperty, rdf:Property;
+    rdfs:label "shortname";
+    rdfs:comment "short name for a component";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:prompt a owl:ObjectProperty, rdf:Property;
+    rdfs:label "prompt";
+    rdfs:comment "the prompt text shown when recording an item";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:prototype a owl:ObjectProperty, rdf:Property;
+    rdfs:label "prototype";
+    rdfs:comment "link to the prototype session/component/item for this thing" .
+
+
+austalk:videorating a owl:ObjectProperty, rdf:Property;
+    rdfs:label "video rating";
+    rdfs:comment "a rating of video quality A-D";
+    owl:domain austalk:RecordedComponent;
+    owl:range xsd:String .
+
+
+austalk:audiorating a owl:ObjectProperty, rdf:Property;
+    rdfs:label "audio rating";
+    rdfs:comment "a rating of audio quality A-D";
+    owl:domain austalk:RecordedComponent;
+    owl:range xsd:String .
+
+
+austalk:comment a owl:ObjectProperty, rdf:Property;
+    rdfs:label "comment";
+    rdfs:comment "a comment on the recording quality ";
+    owl:domain austalk:RecordedComponent ;
+    owl:range xsd:String .
+
+
+austalk:pob_country a owl:ObjectProperty, rdf:Property;
+    rdfs:label "country of birth";
+    rdfs:comment "the country where this person was born";
+    owl:domain foaf:Person ;
+    owl:range xsd:String .
+
+
+austalk:father_pob_state a owl:ObjectProperty, rdf:Property;
+    rdfs:label "state of birth of Father";
+    rdfs:comment "the state where the father of this person was born";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:has_health_problems a owl:ObjectProperty, rdf:Property;
+    rdfs:label "has health problems";
+    rdfs:comment "has health problems";
+    owl:domain foaf:Person;
+    owl:range xsd:Boolean .
+
+
+austalk:student_course a owl:ObjectProperty, rdf:Property;
+    rdfs:label "student course";
+    rdfs:comment "the course that a student is enrolled in";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:is_smoker a owl:ObjectProperty, rdf:Property;
+    rdfs:label "is smoker";
+    rdfs:comment "is smoker";
+    owl:domain foaf:Person;
+    owl:range xsd:Boolean .
+
+
+austalk:has_dentures a owl:ObjectProperty, rdf:Property;
+    rdfs:label "has dentures";
+    rdfs:comment "has dentures";
+    owl:domain foaf:Person;
+    owl:range xsd:Boolean .
+
+
+austalk:has_speech_problems a owl:ObjectProperty, rdf:Property;
+    rdfs:label "has speech problems";
+    rdfs:comment "has speech problems";
+    owl:domain foaf:Person;
+    owl:range xsd:Boolean .
+
+
+austalk:pob_town a owl:ObjectProperty, rdf:Property;
+    rdfs:label "pob town";
+    rdfs:comment "town where this person was born";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:other_languages a owl:ObjectProperty, rdf:Property;
+    rdfs:label "other languages";
+    rdfs:comment "other languages spoken by this person";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:student_aspiration a owl:ObjectProperty, rdf:Property;
+    rdfs:label "student aspiration";
+    rdfs:comment "career aspirations of this person who is a student";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:birthPlace a owl:ObjectProperty, rdf:Property;
+    rdfs:label "birthPlace";
+    rdfs:comment "place of birth of this person (geolocated)";
+    owl:domain foaf:Person;
+    owl:range geo:Feature .
+
+
+austalk:mother_pob_country a owl:ObjectProperty, rdf:Property;
+    rdfs:label "mother's country of birth";
+    rdfs:comment "the country where the mother of this person was born";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:mother_education_level a owl:ObjectProperty, rdf:Property;
+    rdfs:label "mother education level";
+    rdfs:comment "the highest level of education of the mother of this person";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+austalk:mother_pob_state a owl:ObjectProperty, rdf:Property;
+    rdfs:label "mothers birth state";
+    rdfs:comment "the state where the mother of this person was born";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:professional_category a owl:ObjectProperty, rdf:Property;
+    rdfs:label "professional category";
+    rdfs:comment "the professional category of this person";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:is_student a owl:ObjectProperty, rdf:Property;
+    rdfs:label "is student";
+    rdfs:comment "boolean value true if this person is a student";
+    owl:domain foaf:Person;
+    owl:range xsd:Boolean .
+
+
+austalk:cultural_heritage a owl:ObjectProperty, rdf:Property;
+    rdfs:label "cultural heritage";
+    rdfs:comment "the cultural heritage of this person";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:father_education_level a owl:ObjectProperty, rdf:Property;
+    rdfs:label "father education level";
+    rdfs:comment "the highest level of education of the father of this person";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:research_assistant a owl:ObjectProperty, rdf:Property;
+    rdfs:label "research assistant";
+    rdfs:comment "the RA who ran the recording session";
+    owl:domain ausnc:AusNCObject;
+    owl:range foaf:Person .
+
+
+austalk:is_left_handed a owl:ObjectProperty, rdf:Property;
+    rdfs:label "is left handed";
+    rdfs:comment "boolean value tru if this person is left handed";
+    owl:domain foaf:Person;
+    owl:range xsd:Boolean .
+
+
+austalk:mother_pob_town a owl:ObjectProperty, rdf:Property;
+    rdfs:label "mother's birth town";
+    rdfs:comment "the town where the mother of this person was born";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:mother_professional_category a owl:ObjectProperty, rdf:Property;
+    rdfs:label "mother professional category";
+    rdfs:comment "the professional category of the mother of this person";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:recording_site a owl:ObjectProperty, rdf:Property;
+    rdfs:label "recording site";
+    rdfs:comment "recording site";
+    owl:domain ausnc:AusNCObject;
+    owl:range austalk:RecordingSite .
+
+
+austalk:has_reading_problems a owl:ObjectProperty, rdf:Property;
+    rdfs:label "has reading problems";
+    rdfs:comment "boolean value true if this person has reading problems";
+    owl:domain foaf:Person;
+    owl:range xsd:Boolean .
+
+
+austalk:language_usage a owl:ObjectProperty, rdf:Property;
+    rdfs:label "language usage";
+    rdfs:comment "language usage";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:consent a owl:ObjectProperty, rdf:Property;
+    rdfs:label "consent";
+    rdfs:comment "consent";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:has_hearing_problems a owl:ObjectProperty, rdf:Property;
+    rdfs:label "has hearing problems";
+    rdfs:comment "has hearing problems";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:has_piercings a owl:ObjectProperty, rdf:Property;
+    rdfs:label "has piercings";
+    rdfs:comment "has piercings";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:first_language a owl:ObjectProperty, rdf:Property;
+    rdfs:label "first language";
+    rdfs:comment "first language";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:education_level a owl:ObjectProperty, rdf:Property;
+    rdfs:label "education level";
+    rdfs:comment "education level";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:pob_state a owl:ObjectProperty, rdf:Property;
+    rdfs:label "pob state";
+    rdfs:comment "pob state";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:speech_problems_details a owl:ObjectProperty, rdf:Property;
+    rdfs:label "speech problems details";
+    rdfs:comment "speech problems details";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:professional_occupation a owl:ObjectProperty, rdf:Property;
+    rdfs:label "professional occupation";
+    rdfs:comment "professional occupation";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:father_pob_town a owl:ObjectProperty, rdf:Property;
+    rdfs:label "father pob town";
+    rdfs:comment "father pob town";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:father_pob_country a owl:ObjectProperty, rdf:Property;
+    rdfs:label "father pob country";
+    rdfs:comment "father pob country";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:has_hobbies a owl:ObjectProperty, rdf:Property;
+    rdfs:label "has hobbies";
+    rdfs:comment "has hobbies";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:father_cultural_heritage a owl:ObjectProperty, rdf:Property;
+    rdfs:label "father cultural heritage";
+    rdfs:comment "father cultural heritage";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:professional_qualification a owl:ObjectProperty, rdf:Property;
+    rdfs:label "professional qualification";
+    rdfs:comment "professional qualification";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:father_first_language a owl:ObjectProperty, rdf:Property;
+    rdfs:label "father first language";
+    rdfs:comment "father first language";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:father_professional_category a owl:ObjectProperty, rdf:Property;
+    rdfs:label "father professional category";
+    rdfs:comment "father professional category";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:mother_cultural_heritage a owl:ObjectProperty, rdf:Property;
+    rdfs:label "mother cultural heritage";
+    rdfs:comment "mother cultural heritage";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:student_enrollment a owl:ObjectProperty, rdf:Property;
+    rdfs:label "student enrollment";
+    rdfs:comment "student enrollment";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:mother_first_language a owl:ObjectProperty, rdf:Property;
+    rdfs:label "mother first language";
+    rdfs:comment "mother first language";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:has_vocal_training a owl:ObjectProperty, rdf:Property;
+    rdfs:label "has vocal training";
+    rdfs:comment "has vocal training";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:ses a owl:ObjectProperty, rdf:Property;
+    rdfs:label "ses";
+    rdfs:comment "ses";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:residential_history a owl:ObjectProperty, rdf:Property;
+    rdfs:label "residential history";
+    rdfs:comment "residential history";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:media a owl:ObjectProperty, rdf:Property;
+    rdfs:label "media";
+    rdfs:comment "media";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:cameraSN1 a owl:ObjectProperty, rdf:Property;
+    rdfs:label "cameraSN1";
+    rdfs:comment "cameraSN1";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:timestamp a owl:ObjectProperty, rdf:Property;
+    rdfs:label "timestamp";
+    rdfs:comment "timestamp";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:cameraSN0 a owl:ObjectProperty, rdf:Property;
+    rdfs:label "cameraSN0";
+    rdfs:comment "cameraSN0";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:basename a owl:ObjectProperty, rdf:Property;
+    rdfs:label "basename";
+    rdfs:comment "basename";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+
+
+austalk:institution a owl:ObjectProperty, rdf:Property;
+    rdfs:label "institution";
+    rdfs:comment "institution";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:city a owl:ObjectProperty, rdf:Property;
+    rdfs:label "city";
+    rdfs:comment "city";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:type a owl:ObjectProperty, rdf:Property;
+    rdfs:label "type";
+    rdfs:comment "type";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:channel a owl:ObjectProperty, rdf:Property;
+    rdfs:label "channel";
+    rdfs:comment "channel";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:version a owl:ObjectProperty, rdf:Property;
+    rdfs:label "version";
+    rdfs:comment "version";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:checksum a owl:ObjectProperty, rdf:Property;
+    rdfs:label "checksum";
+    rdfs:comment "checksum";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:information_giver a owl:ObjectProperty, rdf:Property;
+    rdfs:label "information giver";
+    rdfs:comment "information giver";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:map a owl:ObjectProperty, rdf:Property;
+    rdfs:label "map";
+    rdfs:comment "map";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:information_follower a owl:ObjectProperty, rdf:Property;
+    rdfs:label "information follower";
+    rdfs:comment "information follower";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:hobbies_details a owl:ObjectProperty, rdf:Property;
+    rdfs:label "hobbies details";
+    rdfs:comment "hobbies details";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:regenerated a owl:ObjectProperty, rdf:Property;
+    rdfs:label "regenerated";
+    rdfs:comment "regenerated";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:hearing_problems_details a owl:ObjectProperty, rdf:Property;
+    rdfs:label "hearing problems details";
+    rdfs:comment "hearing problems details";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:mother_accent a owl:ObjectProperty, rdf:Property;
+    rdfs:label "mother accent";
+    rdfs:comment "mother accent";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:father_accent a owl:ObjectProperty, rdf:Property;
+    rdfs:label "father accent";
+    rdfs:comment "father accent";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:reading_problems_details a owl:ObjectProperty, rdf:Property;
+    rdfs:label "reading problems details";
+    rdfs:comment "reading problems details";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:vocal_training_details a owl:ObjectProperty, rdf:Property;
+    rdfs:label "vocal training details";
+    rdfs:comment "vocal training details";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:residence_history a owl:ObjectProperty, rdf:Property;
+    rdfs:label "residence history";
+    rdfs:comment "residence history";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:situation a owl:ObjectProperty, rdf:Property;
+    rdfs:label "situation";
+    rdfs:comment "situation";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:frequency a owl:ObjectProperty, rdf:Property;
+    rdfs:label "frequency";
+    rdfs:comment "frequency";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:health_problems_details a owl:ObjectProperty, rdf:Property;
+    rdfs:label "health problems details";
+    rdfs:comment "health problems details";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:piercings_details a owl:ObjectProperty, rdf:Property;
+    rdfs:label "piercings details";
+    rdfs:comment "piercings details";
+    owl:domain foaf:Person;
+    owl:range xsd:String .
+
+
+austalk:maptaskcomment a owl:ObjectProperty, rdf:Property;
+    rdfs:label "maptaskcomment";
+    rdfs:comment "maptaskcomment";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:age_from a owl:ObjectProperty, rdf:Property;
+    rdfs:label "age from";
+    rdfs:comment "age from";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:age_to a owl:ObjectProperty, rdf:Property;
+    rdfs:label "age to";
+    rdfs:comment "age to";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:less_than_a_year a owl:ObjectProperty, rdf:Property;
+    rdfs:label "less than a year";
+    rdfs:comment "less than a year";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:state a owl:ObjectProperty, rdf:Property;
+    rdfs:label "state";
+    rdfs:comment "state";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:country a owl:ObjectProperty, rdf:Property;
+    rdfs:label "country";
+    rdfs:comment "country";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+
+
+austalk:town a owl:ObjectProperty, rdf:Property;
+    rdfs:label "town";
+    rdfs:comment "town";
+    owl:domain ausnc:AusNCObject;
+    owl:range xsd:String .
+

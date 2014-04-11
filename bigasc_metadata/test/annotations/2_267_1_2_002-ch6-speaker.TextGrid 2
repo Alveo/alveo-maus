@@ -1,0 +1,70 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.8575963718820863 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "ORT" 
+        xmin = 0 
+        xmax = 1.8575963718820863 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.7674573570482538 
+            text = "" 
+        intervals [2]:
+            xmin = 0.7674573570482538 
+            xmax = 1.142317325454479 
+            text = "hun" 
+        intervals [3]:
+            xmin = 1.142317325454479 
+            xmax = 1.8575963718820863 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "KAN" 
+        xmin = 0 
+        xmax = 1.8575963718820863 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.7674573570482538 
+            text = "" 
+        intervals [2]:
+            xmin = 0.7674573570482538 
+            xmax = 1.142317325454479 
+            text = "/ h 6 n /" 
+        intervals [3]:
+            xmin = 1.142317325454479 
+            xmax = 1.8575963718820863 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 1.8575963718820863 
+        intervals: size = 5 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.7674573570482538 
+            text = "" 
+        intervals [2]:
+            xmin = 0.7674573570482538 
+            xmax = 0.8388592557922967 
+            text = "h" 
+        intervals [3]:
+            xmin = 0.8388592557922967 
+            xmax = 0.9514545576579028 
+            text = "6" 
+        intervals [4]:
+            xmin = 0.9514545576579028 
+            xmax = 1.142317325454479 
+            text = "n" 
+        intervals [5]:
+            xmin = 1.142317325454479 
+            xmax = 1.8575963718820863 
+            text = "" 

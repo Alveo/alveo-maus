@@ -1,0 +1,79 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 1.486077097505669 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "IntervalTier" 
+        name = "ORT" 
+        xmin = 0 
+        xmax = 1.486077097505669 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.6227538116378698 
+            text = "" 
+        intervals [2]:
+            xmin = 0.6227538116378698 
+            xmax = 1.1170746490966284 
+            text = "ballot" 
+        intervals [3]:
+            xmin = 1.1170746490966284 
+            xmax = 1.486077097505669 
+            text = "" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "KAN" 
+        xmin = 0 
+        xmax = 1.486077097505669 
+        intervals: size = 3 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.6227538116378698 
+            text = "" 
+        intervals [2]:
+            xmin = 0.6227538116378698 
+            xmax = 1.1170746490966284 
+            text = "/ b{l@t / 
+" 
+        intervals [3]:
+            xmin = 1.1170746490966284 
+            xmax = 1.486077097505669 
+            text = "" 
+    item [3]:
+        class = "IntervalTier" 
+        name = "MAU" 
+        xmin = 0 
+        xmax = 1.486077097505669 
+        intervals: size = 7 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.6227538116378698 
+            text = "" 
+        intervals [2]:
+            xmin = 0.6227538116378698 
+            xmax = 0.6842692936327375 
+            text = "b" 
+        intervals [3]:
+            xmin = 0.6842692936327375 
+            xmax = 0.791921387123756 
+            text = "{" 
+        intervals [4]:
+            xmin = 0.791921387123756 
+            xmax = 0.8336640356202735 
+            text = "l" 
+        intervals [5]:
+            xmin = 0.8336640356202735 
+            xmax = 0.9127553696136748 
+            text = "@" 
+        intervals [6]:
+            xmin = 0.9127553696136748 
+            xmax = 1.1170746490966284 
+            text = "t" 
+        intervals [7]:
+            xmin = 1.1170746490966284 
+            xmax = 1.486077097505669 
+            text = "" 

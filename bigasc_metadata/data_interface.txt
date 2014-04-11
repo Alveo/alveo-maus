@@ -1,0 +1,81 @@
+Requirements for data download interface
+
+Media files are hosted on data.austalk.edu.au and exposed via WebDAV using URLs
+of the form 
+
+http://data.austalk.edu.au/ANUC/2/sentences/1_178_2_16_001-n-ch6-speaker.wav 
+
+These same URLs are used in the metadata to describe the media files.  
+
+The web server also provides a service to download zip files of collections
+of media files.  
+
+
+Let's have the POST contain a JSON document with the configuration:
+
+ - the list of items, maybe grouped into named groups (nested lists?)
+ - details of which channels are required per item
+ - a name for the resulting zip file
+
+the response is a redirect to a URI that will allow download of the
+zip file. If the zip file is not ready, that page shows a message to
+tell the user this. It looks like response code 307 (Temporary
+Redirect) is appropriate, we redirect to a page that links back to the
+zip file if the zip file isn't ready.
+
+
+Here's a sample query for some media files, digits from male speakers
+getting channel 6.  
+
+PREFIX dc:<http://purl.org/dc/terms/>
+PREFIX austalk:<http://ns.austalk.edu.au/>
+PREFIX olac:<http://www.language-archives.org/OLAC/1.1/>
+PREFIX ausnc:<http://ns.ausnc.org.au/schemas/ausnc_md_model/>
+PREFIX foaf:<http://xmlns.com/foaf/0.1/>
+PREFIX dbpedia:<http://dbpedia.org/ontology/>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+
+select ?obj ?spkr ?media where {
+ ?obj rdf:type ausnc:AusNCObject .
+ ?obj olac:speaker ?spkr .
+ ?obj austalk:component ?comp .
+ ?spkr foaf:gender "male" .
+ ?comp austalk:shortname "digits" .
+ ?obj austalk:media ?media .
+ ?media austalk:version 1 .
+ ?media austalk:channel "ch6-speaker" .
+}
+
+Here's a JSON request that could be sent:
+
+{
+ "media": [
+  "http://data.austalk.edu.au/ANUC/1/digits/1_178_1_5_001-ch6-speaker.wav", 
+  "http://data.austalk.edu.au/ANUC/1/digits/1_178_1_5_002-ch6-speaker.wav", 
+  "http://data.austalk.edu.au/ANUC/1/digits/1_178_1_5_003-ch6-speaker.wav",  
+  "http://data.austalk.edu.au/UOTH/2/digits/1_1001_2_5_005-ch6-speaker.wav", 
+  "http://data.austalk.edu.au/UOTH/2/digits/1_1001_2_5_006-ch6-speaker.wav", 
+  "http://data.austalk.edu.au/UOTH/2/digits/1_1001_2_5_007-ch6-speaker.wav", 
+  "http://data.austalk.edu.au/UOTH/2/digits/1_1001_2_5_008-ch6-speaker.wav", 
+  "http://data.austalk.edu.au/UOTH/2/digits/1_1001_2_5_009-ch6-speaker.wav", 
+  "http://data.austalk.edu.au/UOTH/2/digits/1_1001_2_5_010-ch6-speaker.wav", 
+  "http://data.austalk.edu.au/UOTH/2/digits/1_1001_2_5_011-ch6-speaker.wav", 
+  "http://data.austalk.edu.au/UOTH/2/digits/1_1001_2_5_012-ch6-speaker.wav"
+ ], 
+ "name": "male_digits"
+}
+
+Following this request, the server should return a 307 response redirecting to the
+download URL of the yet-to-be-built zip file.  It should then build a zip
+file containing these files and serve it via the URL it returned. The name 'male_digits' 
+should appear in the zip file name, perhaps along with a timestamp. While the zip
+file is not ready, that URL should redirect to a page with a message saying that
+the file is not ready and containing a link back to the download URL.  This will 
+work for human users, we'll need to ensure that it works for scripted downloaders
+too (eg. some header field in the redirect).
+
+Directory structure of zip files
+
+There are a bunch of options here. We could reproduce the server directory
+structure based on sites, speakers, sessions etc.  
