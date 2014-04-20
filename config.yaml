@@ -1,1 +1,14 @@
-maus_path: 
+maus_path: /home/steve/MAUS/maus
+lexdirpath: lexicon
+maus_params: 
+    LANGUAGE: aus
+    CANONLY: false
+    MINPAUSLEN: 5
+    STARTWORD: 0
+    ENDWORD: 999999
+    MAUSSHIFT: 10
+    INSPROB: 0.0
+    INSKANTEXTGRID: true
+    INSORTTEXTGRID: true
+    USETRN: false
+    OUTFORMAT: TextGrid
