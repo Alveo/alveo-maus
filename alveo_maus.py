@@ -132,7 +132,7 @@ def call_maus(wav_file, bpf, language=None, canonly=None, minpauslen=None,
     pm = conf['maus_params']
 
     params = {
-        'LANGUAGE': __df(language, 'LANGUAGE']),
+        'LANGUAGE': __df(language, p['LANGUAGE']),
         'CANONLY': maus_bool(__df(canonly, p['CANONLY'])),
         'MINPAUSLEN': str(__df(minpauslen, p['MINPAUSLEN'])),
         'STARTWORD': str(__df(startword, p['STARTWORD'])),
