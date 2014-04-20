@@ -77,10 +77,10 @@ def config():
     
 def __df(param, default_value):
     """ Return the given parameter, or, if the parameter is None,
-        return the given default value
+    return the given default value
         
     @param param: the parameter in question
-    @param default value: the defauly value
+    @param default_value: the defauly value
     
     @returns: the paramater or its default value
     
@@ -118,7 +118,7 @@ def call_maus(wav_file, bpf, language=None, canonly=None, minpauslen=None,
     @type wav_file: C{String}
     @param wav_file: path to the WAV file to process
     @type bpf: C{String}
-    @param: transcription of the recording in BPF format
+    @param bpf: transcription of the recording in BPF format
     
     @rtype: C{String}
     @returns: the MAUS-generated annotation, if successful
@@ -245,7 +245,7 @@ def annotate_item(item, prompt):
     of its recordings, using the lexicon and MAUS parameters
     specified in the C{config.yaml} configuration file.
     
-    @type item: L{hcsvlab.Item}
+    @type item: C{hcsvlab.Item}
     @param item: the Item object to annotate
     @type prompt: C{String}
     @param prompt: the common orthographic transcript of the item's documents
