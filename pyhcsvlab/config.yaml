@@ -1,5 +1,5 @@
-api_key:        YOUR_API_KEY_HERE
-database:       cache.db
+api_key:        FxxUpcnJgDBsK31r3hus
+database:       /home/matt/alveo_maus/pyhcsvlab/cache.db
 max_age:        0
 api_url:        http://ic2-hcsvlab-staging2-vm.intersect.org.au
 use_cache:      True

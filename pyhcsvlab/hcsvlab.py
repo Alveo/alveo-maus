@@ -41,6 +41,7 @@ def create_cache_database(path, file_dir):
     
     
     """
+    file_dir = os.path.abspath(file_dir)
     conn = sqlite3.connect(path)
     c = conn.cursor()
     c.execute("""CREATE TABLE items
@@ -480,7 +481,7 @@ class Client(object):
         headers = {'X-API-KEY': self.api_key, 'Accept': 'application/json'}
         if data is not None:
             headers['Content-Type'] = 'application/json'
-            
+        
         req = urllib2.Request(url, data=data, headers=headers)
         try:
             opener = urllib2.build_opener(urllib2.HTTPHandler())
@@ -619,7 +620,7 @@ class Client(object):
         metadata = self.get_item(item_url).metadata()
         
         try:
-            primary_text_url = metadata['primary_text_url']
+            primary_text_url = metadata['alveo:primary_text_url']
         except KeyError:
             return None
             
@@ -656,8 +657,7 @@ class Client(object):
         
         
         """
-        md = self.get_item(str(item_url)).metadata()
-        req_url = md['annotations_url']
+        req_url = item_url + "/annotations"
         if annotation_type is not None:
             req_url += '?'
             req_url += urllib.urlencode((('type', annotation_type),))
@@ -671,7 +671,25 @@ class Client(object):
             return self.api_request(req_url)
         except KeyError:
             return None
+       
+       
+    def get_annotation_types(self, item_url):
+        """ Retrieve the annotation types for the given item from the server
         
+        @type item_url: C{String} or L{Item}
+        @param item_url: URL of the item, or an Item object
+        
+        @rtype: C{List}
+        @returns: a List specifying the annotation types
+        
+        @raises APIError: if the request was not successful
+            
+            
+        """
+        req_url = item_url + "/annotations/types"
+        resp = json.loads(self.api_request(req_url))
+        return resp['annotation_types']
+    
         
     def upload_annotation(self, item_url, annotation):
         """ Upload the given annotation to the server
@@ -803,11 +821,14 @@ class Client(object):
         return ItemList(resp['items'], self, str(item_list_url), resp['name'])
 
 
-    def get_item_list_by_name(self, item_list_name):
+    def get_item_list_by_name(self, item_list_name, category='own'):
         """ Retrieve an item list from the server as an ItemList object
 
         @type item_list_name: C{String}
         @param item_list_name: name of the item list to retrieve
+        @type category: C{String}
+        @param category: the category of lists to fetch. At the time of
+            writing, supported values are "own" and "shared"
 
         @rtype: L{ItemList}
         @returns: The ItemList
@@ -817,8 +838,8 @@ class Client(object):
         
         """
         resp = self.api_request(self.api_url + '/item_lists')
-        for item_list in json.loads(resp):
-            if item_list['name'] ==item_list_name:
+        for item_list in json.loads(resp)[category]:
+            if item_list['name'] == item_list_name:
                 return self.get_item_list(item_list['item_list_url'])
         raise ValueError('List does not exist: ' + item_list_name)
          
@@ -869,6 +890,54 @@ class Client(object):
         resp = self.api_request(request_url, data)
         return self.__check_success(resp)
       
+    
+    def rename_item_list(self, item_list_url, new_name):
+        """ Rename an Item List on the server
+        
+        @type item_list_url: C{String} or L{ItemList}
+        @param item_list_url: the URL of the list to which to add the items,
+            or an ItemList object
+        @type new_name: C{String}
+        @param new_name: the new name to give the Item List
+        
+        @rtype: L{ItemList}
+        @returns: the item list, if successful
+        
+        @raises APIError: if the request was not successful
+        
+        
+        """
+        data = json.dumps({'name': new_name})
+        resp = self.api_request(str(item_list_url), data)
+        try:
+            return ItemList(resp['items'], self, item_list_url, resp['name'])
+        except KeyError:
+            try:
+                raise APIError(resp['error'])
+            except KeyError:
+                raise APIError(resp)
+        
+    
+    def sparql_query(self, collection_name, query):
+        """ Submit a sparql query to the server to search metadata
+        and annotations.
+            
+        @type collection_name: C{String}
+        @param collection_name: the name of the collection to search
+        @type query: C{String}
+        @param query: the sparql query
+        
+        @rtype: C{Dict}
+        @returns: the query result from the server
+        
+        @raises APIError: if the request was not successful
+        
+        
+        """
+        request_url = self.api_url + '/sparql/' + collection_name + '?'
+        request_url += urllib.urlencode((('query', query),))
+        return json.loads(self.api_request(request_url))
+        
         
 
 class ItemGroup(object):
@@ -1008,6 +1077,7 @@ class ItemGroup(object):
         new_list = [url for url in self.item_urls if url in other.item_urls]
         return ItemGroup(new_list, self.client)
         
+        
     def __iter__(self):
         """ Iterate over the item URLs in this ItemGroup 
         
@@ -1087,7 +1157,7 @@ class ItemGroup(object):
 
         """
         return self.item_urls
-
+   
 
     def get_item(self, item_index, force_download=False):
         """ Retrieve the metadata for a specific item in this ItemGroup
@@ -1286,7 +1356,7 @@ class Item(object):
         
         
         """
-        self.item_url = metadata['catalog_url']
+        self.item_url = metadata['alveo:catalog_url']
         self.item_metadata = metadata
         self.client = client
         
@@ -1321,7 +1391,7 @@ class Item(object):
         @returns: a list of Document objects corresponding to this
             Item's documents    
         """
-        return[Document(d, self.client) for d in self.metadata()['documents']]
+        return[Document(d, self.client) for d in self.metadata()['alveo:documents']]
         
         
     def get_document(self, index=0):
@@ -1337,7 +1407,7 @@ class Item(object):
         
         """
         try:
-            return Document(self.metadata()['documents'][index], self.client)
+            return Document(self.metadata()['alveo:documents'][index], self.client)
         except IndexError:
             raise ValueError('No document exists for this item with index: '
                              + str(index))
@@ -1376,7 +1446,20 @@ class Item(object):
         
         """   
         return self.client.get_item_annotations(self.url(), type, label)
+
         
+    def get_annotation_types(self):
+        """ Retrieve the annotation types for this item from the server
+        
+        @rtype: C{List}
+        @returns: a List specifying the annotation types
+        
+        @raises APIError: if the request was not successful
+            
+            
+        """
+        return self.client.get_annotation_types(self.url())
+    
             
     def upload_annotation(self, annotation):
         """ Upload the given annotation to the server
@@ -1485,7 +1568,7 @@ class Document(object):
         
         
         """
-        self.doc_url = metadata['url']
+        self.doc_url = metadata['alveo:url']
         self.doc_metadata = metadata
         self.client = client
         
