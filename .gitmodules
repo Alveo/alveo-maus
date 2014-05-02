@@ -1,0 +1,3 @@
+[submodule "pyhcsvlab"]
+	path = pyhcsvlab
+	url = https://mhongkong@bitbucket.org/mhongkong/pyhcsvlab.git
