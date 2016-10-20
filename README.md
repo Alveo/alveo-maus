@@ -1,1 +1,0 @@
-System to retrieve recordings from HCSvLab and process them with MAUS. See the documentation/ directory for full epydoc documentation in HTML format. Heavily borrows from Steve Cassidy's bigasc\_metadata project.
