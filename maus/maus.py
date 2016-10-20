@@ -4,8 +4,6 @@ import tempfile
 import StringIO
 import re
 
-import yaml
-
 SOURCEDIR = os.path.dirname(os.path.realpath(__file__))
 
 class MausError(Exception):
@@ -39,7 +37,7 @@ def load_lexicon(lexdirpath=None):
     lex = {}
 
     if lexdirpath is None:
-        lexdirpath = os.path.join(SOURCEDIR, 'lexicon')
+        lexdirpath = os.path.join(os.path.dirname(SOURCEDIR), 'lexicon')
 
 
     files = [fp for fp in os.listdir(lexdirpath) if
@@ -54,23 +52,6 @@ def load_lexicon(lexdirpath=None):
 
     return lex
 
-
-def config():
-    """ Load the config file as a dictionary
-
-        @rtype: C{Dict}
-        @returns: the content of the C{config.yaml} file, as a dictionary
-
-
-    """
-    filename = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                            'config.yaml')
-
-    f = open(filename, 'r')
-    c = yaml.safe_load(f.read())
-    f.close()
-
-    return c
 
 def maus_bool(value):
     """ Format a boolean value for passing to MAUS as an argument
@@ -107,9 +88,6 @@ def call_maus(wav_file, bpf, dir=None, **kwargs):
 
     @raises MausError: if the alignment was not successful
     """
-
-    conf = config()
-    pm = conf['maus_params']
 
     # we use the directory that the wav file in as a working directory
     dir = os.path.dirname(os.path.realpath(wav_file))
