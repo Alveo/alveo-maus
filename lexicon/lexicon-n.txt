@@ -46,6 +46,7 @@ neck	nek
 necklace	`nekl@s
 nee	n{I
 need	ni:d
+needs	ni:dz
 needle	`ni:d@l
 negative	`neg@tIv
 neglect	n@`glekt
